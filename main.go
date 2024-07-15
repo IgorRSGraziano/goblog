@@ -6,7 +6,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func Main() {
+func main() {
 	r := gin.Default()
 	models.ConnectDatabase()
 	r.Run()
