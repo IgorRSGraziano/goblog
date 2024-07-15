@@ -7,7 +7,7 @@ type Post struct {
 	ID      uint   `json:"id"`
 	Title   string `json:"title"`
 	Content string `json:"content"`
-	UserID  uint   `json:"user_id"`
+	UserID  uint   `json:"userId"`
 	Slug    string `json:"slug"`
 	User    User   `json:"user"`
 }
