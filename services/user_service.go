@@ -52,7 +52,7 @@ func generateJwt(user *models.User) (string, error) {
 	return tokenString, nil
 }
 
-func Login(input LoginInput) (string, error) {
+func Login(input LoginInput) (string, *models.User, error) {
 	var user *models.User
 
 	digestPassword := md5.Sum([]byte(input.Password))
@@ -60,14 +60,14 @@ func Login(input LoginInput) (string, error) {
 	models.DB.Where("email = ? AND password = ?", input.Email, hex.EncodeToString(digestPassword[:])).First(&user)
 
 	if user.ID == 0 {
-		return "", nil
+		return "", user, nil
 	}
 
 	token, err := generateJwt(user)
 
 	if err != nil {
-		return "", err
+		return "", user, err
 	}
 
-	return token, nil
+	return token, user, nil
 }
