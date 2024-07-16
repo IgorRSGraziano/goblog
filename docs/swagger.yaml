@@ -21,6 +21,30 @@ definitions:
 info:
   contact: {}
 paths:
+  /user:
+    get:
+      consumes:
+      - application/json
+      description: Get the user that is currently logged in
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.User'
+        "401":
+          description: Unauthorized
+          schema:
+            properties:
+              error:
+                type: string
+            type: object
+      security:
+      - ApiKeyAuth: []
+      summary: Get logged in user
+      tags:
+      - User
   /user/login:
     post:
       consumes:
@@ -63,7 +87,7 @@ paths:
       tags:
       - User
 securityDefinitions:
-  JWT:
+  ApiKeyAuth:
     in: header
     name: token
     type: apiKey
